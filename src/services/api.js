@@ -1,7 +1,8 @@
-// ── CONFIGURACIÓN ──────────────────────────────────────────
-const FLOW_COLABORADORES = 'https://f80c9cc9e766e8a5bb5d42b2e1208a.e4.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/d7f2bc3ddc9f4386a0f582f5bd7d3641/triggers/manual/paths/invoke?api-version=1';
+// ── CONFIGURACIÓN SHAREPOINT ───────────────────────────────
+const SP_SITE = 'https://dreamscl.sharepoint.com/sites/GPOAABB';
+const SP_LIST = 'Colaboradores_Horarios';
 
-// Mock solo para datos que aún no tienen flujo
+// ── DATOS MOCK (turnos y locales — aún no en SharePoint) ───
 const LOCALES_MOCK = [
   { codigo: 'HOTEL',      nombre: 'Hotel',          area: 'MIXTO' },
   { codigo: 'RES',        nombre: 'Res',             area: 'MIXTO' },
@@ -32,10 +33,24 @@ const TURNOS_MOCK = {
 };
 
 const USUARIOS_MOCK = [
-  { email: 'jecheverria@monticello.cl',          nombre: 'Jose Echeverria', rol: 'ADMIN',       local: null },
-  { email: 'supervisor.hotel@monticello.cl',     nombre: 'Supervisor Hotel', rol: 'SUPERVISOR', local: 'HOTEL' },
-  { email: 'lectura@monticello.cl',              nombre: 'Vista General',   rol: 'LECTURA',     local: null },
+  { email: 'jecheverria@monticello.cl',      nombre: 'Jose Echeverria', rol: 'ADMIN',      local: null },
+  { email: 'supervisor.hotel@monticello.cl', nombre: 'Supervisor Hotel',rol: 'SUPERVISOR', local: 'HOTEL' },
+  { email: 'lectura@monticello.cl',          nombre: 'Vista General',   rol: 'LECTURA',    local: null },
 ];
+
+// ── SHAREPOINT REST API ────────────────────────────────────
+async function fetchSharePoint(url) {
+  const response = await fetch(url, {
+    headers: {
+      'Accept': 'application/json;odata=verbose',
+      'Content-Type': 'application/json;odata=verbose',
+    },
+    credentials: 'include', // usa las credenciales de Microsoft del navegador
+  });
+  if (!response.ok) throw new Error(`SharePoint error: ${response.status}`);
+  const data = await response.json();
+  return data?.d?.results || data?.d || data;
+}
 
 // ── API FUNCTIONS ──────────────────────────────────────────
 
@@ -55,32 +70,26 @@ export async function getTurnos(local) {
 
 export async function getColaboradores(local) {
   try {
-    const response = await fetch(FLOW_COLABORADORES, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ local: local })
-    });
+    const url = `${SP_SITE}/_api/web/lists/getbytitle('${SP_LIST}')/items`
+      + `?$select=Title,RUT,Local,Cargo,Jornada,Area,Empresa,TipoContrato,Bloqueado`
+      + `&$filter=Local eq '${local}' and Activo eq 1 and Bloqueado eq 0`
+      + `&$top=500`
+      + `&$orderby=Area,Cargo,Title`;
 
-    if (!response.ok) throw new Error('Error en el flujo');
+    const items = await fetchSharePoint(url);
 
-    const data = await response.json();
-
-    // El flujo devuelve ResultSets con tabla1
-    const rows = data?.Table1 || data?.table1 || data?.ResultSets?.Table1 || [];
-
-    return rows.map(r => ({
-      rut:           r.rut,
-      nombre:        r.nombre,
-      cargo:         r.cargo,
-      jornada:       r.jornada,
-      area:          r.area,
-      empresa:       r.empresa,
-      tipo_contrato: r.tipo_contrato,
+    return items.map(item => ({
+      rut:           item.RUT,
+      nombre:        item.Title,
+      cargo:         item.Cargo,
+      jornada:       item.Jornada,
+      area:          item.Area,
+      empresa:       item.Empresa,
+      tipo_contrato: item.TipoContrato,
     }));
 
   } catch (err) {
-    console.error('Error cargando colaboradores:', err);
-    // Fallback a mock si falla
+    console.error('Error cargando colaboradores desde SharePoint:', err);
     return [];
   }
 }
@@ -142,16 +151,16 @@ export function validarHorario(colaboradores, asignaciones, diasEspeciales) {
 
     // Regla: semanas sin 2 días libres
     for (let sem = 0; sem < 5; sem++) {
-      const inicio_sem = sem * 7;
-      const fin_sem = Math.min(inicio_sem + 7, 31);
-      const dias_sem = dias.slice(inicio_sem, fin_sem);
-      const trabajados = dias_sem.filter(d => d.tipo === 'trabajo').length;
-      const libres = dias_sem.filter(d => ['X','DM','9C'].includes(d.codigo)).length;
+      const ini = sem * 7;
+      const fin = Math.min(ini + 7, 31);
+      const ds = dias.slice(ini, fin);
+      const trabajados = ds.filter(d => d.tipo === 'trabajo').length;
+      const libres = ds.filter(d => ['X','DM','9C'].includes(d.codigo)).length;
       if (trabajados > 0 && libres < 2) alertas.push({
         rut, nombre: colab.nombre,
         tipo: 'SIN_DIA_LIBRE_SEMANAL',
         descripcion: `Semana ${sem+1}: solo ${libres} día(s) libre(s), trabaja ${trabajados} días`,
-        dia: inicio_sem + 1
+        dia: ini + 1
       });
     }
   });
