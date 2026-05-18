@@ -1,0 +1,53 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0f1923;
+  --bg2:       #162030;
+  --bg3:       #1e2d40;
+  --border:    #2a3f57;
+  --accent:    #00c2ff;
+  --accent2:   #ff6b35;
+  --text:      #e8f0f8;
+  --text2:     #7a9ab8;
+  --success:   #00d68f;
+  --warning:   #ffaa00;
+  --danger:    #ff4757;
+  --font:      'DM Sans', sans-serif;
+  --mono:      'Space Mono', monospace;
+  --radius:    8px;
+  --shadow:    0 4px 24px rgba(0,0,0,0.4);
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+button {
+  font-family: var(--font);
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+}
+
+input, select {
+  font-family: var(--font);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus { border-color: var(--accent); }

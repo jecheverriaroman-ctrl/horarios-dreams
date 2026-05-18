@@ -1,0 +1,184 @@
+.grilla-wrapper {
+  position: relative;
+}
+
+.grilla-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.grilla-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 1000px;
+}
+
+.grilla-table th {
+  background: var(--bg3);
+  padding: 6px 4px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text2);
+  border-bottom: 2px solid var(--border);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.th-nombre { min-width: 180px; text-align: left; padding-left: 12px; position: sticky; left: 0; z-index: 20; background: var(--bg3); }
+.th-cargo  { min-width: 110px; }
+.th-jornada { min-width: 70px; }
+.th-dia    { min-width: 38px; width: 38px; }
+.th-total  { min-width: 48px; }
+
+.th-dia-num { font-family: var(--mono); font-size: 11px; color: var(--text); }
+.th-dia-dow { font-size: 9px; color: var(--text2); }
+.dia-domingo .th-dia-num { color: var(--accent2) !important; }
+.dia-domingo .th-dia-dow { color: var(--accent2) !important; }
+
+.tr-par  td { background: rgba(255,255,255,0.01); }
+.tr-impar td { background: rgba(0,0,0,0.1); }
+
+.tr-totales td {
+  background: var(--bg3) !important;
+  border-bottom: 2px solid var(--border);
+  padding: 4px;
+  font-size: 11px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--accent);
+  font-family: var(--mono);
+}
+
+.td-totales-label {
+  text-align: left !important;
+  padding-left: 12px !important;
+  color: var(--text2) !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
+}
+
+.td-total-dia span { font-size: 11px; }
+
+.td-nombre {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  position: sticky;
+  left: 0;
+  background: inherit;
+  z-index: 5;
+  border-right: 2px solid var(--border);
+  min-width: 180px;
+}
+
+.td-cargo   { padding: 4px 8px; font-size: 11px; color: var(--text2); text-align: center; }
+.td-jornada { padding: 4px 8px; text-align: center; }
+
+.jornada-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+.jornada-badge.ft { background: rgba(0,214,143,0.1); color: var(--success); }
+.jornada-badge.pt { background: rgba(255,170,0,0.1);  color: var(--warning); }
+
+.td-cell {
+  border: 1px solid transparent;
+  text-align: center;
+  padding: 2px;
+  height: 30px;
+  transition: filter 0.1s;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+
+.td-cell.clickable:hover { filter: brightness(1.3); cursor: pointer; }
+.td-cell.dia-domingo { border-right: 1px solid rgba(255,107,53,0.15) !important; }
+
+.cell-hora {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  display: block;
+}
+
+.cell-especial {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  display: block;
+  opacity: 0.8;
+}
+
+.td-total-col {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-left: 2px solid var(--border);
+}
+
+.td-total-col .warn { color: var(--warning); }
+
+/* Menú contextual */
+.cell-menu {
+  position: absolute;
+  z-index: 1000;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px;
+  min-width: 200px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+.cell-menu-section {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text2);
+  padding: 4px 8px;
+  margin-top: 4px;
+}
+
+.cell-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+  text-align: left;
+  transition: filter 0.1s;
+}
+
+.cell-menu-item:hover { filter: brightness(1.3); }
+
+.menu-hora { font-family: var(--mono); font-size: 12px; font-weight: 700; min-width: 36px; }
+.menu-nombre { flex: 1; }
+.menu-dur { font-size: 10px; opacity: 0.7; }
+
+.especial-item { font-family: var(--mono); font-size: 11px; }
+
+.clear-item {
+  background: transparent;
+  color: var(--danger);
+  border-color: var(--danger);
+  margin-top: 4px;
+  justify-content: center;
+  font-size: 11px;
+}

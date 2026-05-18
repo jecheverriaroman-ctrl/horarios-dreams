@@ -1,0 +1,51 @@
+.horario-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.horario-title {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.horario-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.area-toggle {
+  display: flex;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.area-btn {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: transparent;
+  color: var(--text2);
+  border-radius: 0;
+}
+
+.area-btn.active {
+  background: var(--accent);
+  color: #000;
+}
+
+.alerta-count {
+  background: var(--danger);
+  color: #fff;
+  border-radius: 10px;
+  padding: 1px 7px;
+  font-size: 11px;
+  margin-left: 6px;
+}

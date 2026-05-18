@@ -1,0 +1,132 @@
+.alertas-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 500;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+.alertas-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  width: 480px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.alertas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg2);
+}
+
+.alertas-title {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.alertas-sub {
+  font-size: 11px;
+  color: var(--text2);
+}
+
+.alertas-close { padding: 6px 12px; }
+
+.alertas-ok {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 20px;
+  color: var(--success);
+  font-weight: 500;
+}
+
+.alertas-ok-icon {
+  width: 40px; height: 40px;
+  background: rgba(0,214,143,0.1);
+  border: 2px solid var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.alertas-resumen {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.resumen-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.02);
+  font-size: 12px;
+}
+
+.resumen-label { color: var(--text2); }
+
+.alertas-list {
+  padding: 12px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alerta-item {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--bg3);
+  border-left: 3px solid;
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+}
+
+.alerta-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  gap: 8px;
+}
+
+.alerta-nombre {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.alerta-tipo-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.alerta-desc { font-size: 12px; color: var(--text2); margin-bottom: 4px; }
+.alerta-dia  { font-size: 11px; color: var(--text2); font-family: var(--mono); }

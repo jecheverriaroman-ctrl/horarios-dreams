@@ -1,0 +1,127 @@
+.login-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-bg-text {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 20vw;
+  font-weight: 700;
+  color: rgba(255,255,255,0.02);
+  user-select: none;
+  letter-spacing: -0.05em;
+  pointer-events: none;
+}
+
+.login-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px;
+  width: 420px;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow);
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logo-dot {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.logo-text {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 2px;
+}
+
+.logo-text span { color: var(--accent); }
+
+.login-sub {
+  color: var(--text2);
+  font-size: 13px;
+  margin-bottom: 32px;
+  padding-left: 22px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-form label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.login-error {
+  background: rgba(255,71,87,0.1);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+}
+
+.login-hint {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-hint p {
+  font-size: 11px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.login-hint code {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(0,194,255,0.05);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,194,255,0.2);
+}
