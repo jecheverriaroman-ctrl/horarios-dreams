@@ -1,29 +1,23 @@
 // ── CONFIGURACIÓN ──────────────────────────────────────────
-// Reemplaza con tu connection string de Azure SQL
-const API_BASE = process.env.REACT_APP_API_URL || '';
+const FLOW_COLABORADORES = 'https://f80c9cc9e766e8a5bb5d42b2e1208a.e4.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/d7f2bc3ddc9f4386a0f582f5bd7d3641/triggers/manual/paths/invoke?api-version=1';
 
-// Simulación local para desarrollo (sin backend aún)
-const MOCK = true;
-
-// ── DATOS MOCK ─────────────────────────────────────────────
-const USUARIOS_MOCK = [
-  { email: 'jecheverria@monticello.cl', nombre: 'Administrador', rol: 'ADMIN',       local: null },
-  { email: 'supervisor.hotel@monticello.cl', nombre: 'Supervisor Hotel', rol: 'SUPERVISOR', local: 'HOTEL' },
-  { email: 'lectura@monticello.cl',    nombre: 'Vista General', rol: 'LECTURA',     local: null },
-];
-
+// Mock solo para datos que aún no tienen flujo
 const LOCALES_MOCK = [
-  { codigo: 'HOTEL',     nombre: 'Hotel',          area: 'MIXTO' },
-  { codigo: 'RES',       nombre: 'Res',             area: 'MIXTO' },
-  { codigo: 'L7',        nombre: 'Lucky 7',         area: 'MIXTO' },
-  { codigo: 'PRIVE',     nombre: 'Privé',           area: 'MIXTO' },
-  { codigo: 'JR',        nombre: 'Jhonny R',        area: 'MIXTO' },
-  { codigo: 'DECALETA',  nombre: 'Decaleta',        area: 'MIXTO' },
-  { codigo: 'LOLA_TAPAS',nombre: 'Lola Tapas',      area: 'MIXTO' },
-  { codigo: 'OLIVERA',   nombre: 'Olivera',         area: 'MIXTO' },
-  { codigo: 'BANQUETES', nombre: 'Banquetes',       area: 'MIXTO' },
-  { codigo: 'BOWLING',   nombre: 'Bowling',         area: 'FOH'   },
-  { codigo: 'CAPATAZ',   nombre: 'Capataz',         area: 'MIXTO' },
+  { codigo: 'HOTEL',      nombre: 'Hotel',          area: 'MIXTO' },
+  { codigo: 'RES',        nombre: 'Res',             area: 'MIXTO' },
+  { codigo: 'L7',         nombre: 'Lucky 7',         area: 'MIXTO' },
+  { codigo: 'PRIVE',      nombre: 'Privé',           area: 'MIXTO' },
+  { codigo: 'JR',         nombre: 'Jhonny R',        area: 'MIXTO' },
+  { codigo: 'DECALETA',   nombre: 'Decaleta',        area: 'MIXTO' },
+  { codigo: 'LOLA_TAPAS', nombre: 'Lola Tapas',      area: 'MIXTO' },
+  { codigo: 'OLIVERA',    nombre: 'Olivera',         area: 'MIXTO' },
+  { codigo: 'BANQUETES',  nombre: 'Banquetes',       area: 'MIXTO' },
+  { codigo: 'BOWLING',    nombre: 'Bowling',         area: 'FOH'   },
+  { codigo: 'CAPATAZ',    nombre: 'Capataz',         area: 'MIXTO' },
+  { codigo: 'BLACK_BAR',  nombre: 'Black Bar',       area: 'FOH'   },
+  { codigo: 'FB_CASINO',  nombre: 'FB Casino',       area: 'FOH'   },
+  { codigo: 'YANN',       nombre: 'Yann',            area: 'MIXTO' },
+  { codigo: 'CONFERENCE', nombre: 'Conference',      area: 'FOH'   },
 ];
 
 const TURNOS_MOCK = {
@@ -37,90 +31,79 @@ const TURNOS_MOCK = {
   ]
 };
 
-const COLABORADORES_MOCK = {
-  HOTEL: [
-    { rut:'19276240-5', nombre:'ARRIAGADA ALIAGA ANDREA',    cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'13597456-0', nombre:'AVILES RAMIREZ MARGARITA',   cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'16230410-0', nombre:'CONTRERAS BARRERA ELIZABETH',cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'18320756-3', nombre:'CURAQUEO CARES KAREN',       cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'19852348-8', nombre:'CURIHUAN VERGARA TANIA',     cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'19308385-4', nombre:'FUENTES ARELLANO CLAUDIA',   cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'21456019-4', nombre:'GALVEZ CANIO JAVIERA',       cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'19565514-6', nombre:'GARRIDO HIGUERA GENESIS',    cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'20371405-k', nombre:'GONZALEZ LEIVA NASLY',       cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'20658571-4', nombre:'ORTIZ DIAZ EMA ALEXANDRA',   cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'19265465-3', nombre:'ROJAS BASUALTO GUILLERMO',   cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'19850467-k', nombre:'VEGAS RIVERA FRANCISCA',     cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'GPO' },
-    { rut:'13889975-6', nombre:'Vega Carrillo Angel Enrique',cargo:'GARZON',    jornada:'Full Time',   area:'FOH', empresa:'MONTICELLO' },
-    { rut:'16563022-K', nombre:'Contreras Diaz Cynilia',     cargo:'SUPERVISOR',jornada:'Full Time',   area:'FOH', empresa:'MONTICELLO' },
-    { rut:'15123555-7', nombre:'ALVAREZ QUEZADA LORENA',     cargo:'GARZON',    jornada:'Part Time 20',area:'FOH', empresa:'GPO' },
-    { rut:'21934653-0', nombre:'MUNOZ MUNOZ VICENTE',        cargo:'GARZON',    jornada:'Part Time 20',area:'FOH', empresa:'GPO' },
-    { rut:'17312711-1', nombre:'Fredes Peñaloza Felipe',     cargo:'SOUS CHEF', jornada:'Full Time',   area:'BOH', empresa:'MONTICELLO' },
-    { rut:'13342779-1', nombre:'Valdivia Herrera Susana',    cargo:'DEMI CHEF', jornada:'Full Time',   area:'BOH', empresa:'MONTICELLO' },
-    { rut:'17716893-9', nombre:'FUENTES GONZALEZ TERESA',    cargo:'DEMI CHEF', jornada:'Full Time',   area:'BOH', empresa:'GPO' },
-    { rut:'13301985-5', nombre:'Vargas Soto Luis Hernan',    cargo:'CHEF DE PARTIE',jornada:'Full Time',area:'BOH',empresa:'MONTICELLO' },
-  ]
-};
+const USUARIOS_MOCK = [
+  { email: 'jecheverria@monticello.cl',          nombre: 'Jose Echeverria', rol: 'ADMIN',       local: null },
+  { email: 'supervisor.hotel@monticello.cl',     nombre: 'Supervisor Hotel', rol: 'SUPERVISOR', local: 'HOTEL' },
+  { email: 'lectura@monticello.cl',              nombre: 'Vista General',   rol: 'LECTURA',     local: null },
+];
 
 // ── API FUNCTIONS ──────────────────────────────────────────
+
 export async function loginUsuario(email) {
-  if (MOCK) {
-    const u = USUARIOS_MOCK.find(x => x.email.toLowerCase() === email.toLowerCase());
-    if (!u) throw new Error('Usuario no encontrado');
-    return u;
-  }
-  const r = await fetch(`${API_BASE}/api/usuarios/${email}`);
-  if (!r.ok) throw new Error('Error al autenticar');
-  return r.json();
+  const u = USUARIOS_MOCK.find(x => x.email.toLowerCase() === email.toLowerCase());
+  if (!u) throw new Error('Usuario no encontrado');
+  return u;
 }
 
 export async function getLocales() {
-  if (MOCK) return LOCALES_MOCK;
-  const r = await fetch(`${API_BASE}/api/locales`);
-  return r.json();
+  return LOCALES_MOCK;
 }
 
 export async function getTurnos(local) {
-  if (MOCK) return TURNOS_MOCK[local] || [];
-  const r = await fetch(`${API_BASE}/api/turnos/${local}`);
-  return r.json();
+  return TURNOS_MOCK[local] || TURNOS_MOCK['HOTEL'];
 }
 
 export async function getColaboradores(local) {
-  if (MOCK) return COLABORADORES_MOCK[local] || [];
-  const r = await fetch(`${API_BASE}/api/colaboradores/${local}`);
-  return r.json();
+  try {
+    const response = await fetch(FLOW_COLABORADORES, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ local: local })
+    });
+
+    if (!response.ok) throw new Error('Error en el flujo');
+
+    const data = await response.json();
+
+    // El flujo devuelve ResultSets con tabla1
+    const rows = data?.Table1 || data?.table1 || data?.ResultSets?.Table1 || [];
+
+    return rows.map(r => ({
+      rut:           r.rut,
+      nombre:        r.nombre,
+      cargo:         r.cargo,
+      jornada:       r.jornada,
+      area:          r.area,
+      empresa:       r.empresa,
+      tipo_contrato: r.tipo_contrato,
+    }));
+
+  } catch (err) {
+    console.error('Error cargando colaboradores:', err);
+    // Fallback a mock si falla
+    return [];
+  }
 }
 
 export async function getPlantilla(local, anio, mes) {
-  if (MOCK) return [];
-  const r = await fetch(`${API_BASE}/api/plantilla/${local}/${anio}/${mes}`);
-  return r.json();
+  return [];
 }
 
 export async function savePlantilla(data) {
-  if (MOCK) { console.log('MOCK save plantilla', data); return { ok: true }; }
-  const r = await fetch(`${API_BASE}/api/plantilla`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  return r.json();
+  console.log('Save plantilla (pendiente):', data);
+  return { ok: true };
 }
 
 export async function getAlertas(local, anio, mes) {
-  if (MOCK) return [];
-  const r = await fetch(`${API_BASE}/api/alertas/${local}/${anio}/${mes}`);
-  return r.json();
+  return [];
 }
 
-// ── VALIDACIÓN LEGAL (sin backend) ────────────────────────
+// ── VALIDACIÓN LEGAL ───────────────────────────────────────
 export function validarHorario(colaboradores, asignaciones, diasEspeciales) {
   const alertas = [];
 
   colaboradores.forEach(colab => {
     const rut = colab.rut;
-    // Construir array de 31 días
     const dias = Array.from({length: 31}, (_, i) => {
       const fecha = i + 1;
       const especial = diasEspeciales.find(d => d.rut === rut && d.dia === fecha);
@@ -131,18 +114,18 @@ export function validarHorario(colaboradores, asignaciones, diasEspeciales) {
     });
 
     // Regla: max 6 consecutivos
-    let consec = 0, inicio = 0;
+    let consec = 0, inicio = 1;
     dias.forEach((d, i) => {
       if (['9V','9L','B'].includes(d.codigo) || d.tipo === 'vacio') {
-        consec = 0; inicio = i + 1;
-      } else if (d.codigo === 'X' || d.codigo === 'DM' || d.codigo === '9C') {
-        consec = 0; inicio = i + 1;
+        consec = 0; inicio = i + 2;
+      } else if (['X','DM','9C'].includes(d.codigo)) {
+        consec = 0; inicio = i + 2;
       } else {
         consec++;
         if (consec === 7) alertas.push({
           rut, nombre: colab.nombre,
           tipo: 'DIAS_CONSECUTIVOS',
-          descripcion: `7° día consecutivo trabajado (desde día ${inicio + 1})`,
+          descripcion: `7° día consecutivo trabajado (desde día ${inicio})`,
           dia: i + 1
         });
       }
@@ -156,6 +139,21 @@ export function validarHorario(colaboradores, asignaciones, diasEspeciales) {
       descripcion: `Solo ${dms.length} domingo(s) libre(s) DM. Requiere 2.`,
       dia: null
     });
+
+    // Regla: semanas sin 2 días libres
+    for (let sem = 0; sem < 5; sem++) {
+      const inicio_sem = sem * 7;
+      const fin_sem = Math.min(inicio_sem + 7, 31);
+      const dias_sem = dias.slice(inicio_sem, fin_sem);
+      const trabajados = dias_sem.filter(d => d.tipo === 'trabajo').length;
+      const libres = dias_sem.filter(d => ['X','DM','9C'].includes(d.codigo)).length;
+      if (trabajados > 0 && libres < 2) alertas.push({
+        rut, nombre: colab.nombre,
+        tipo: 'SIN_DIA_LIBRE_SEMANAL',
+        descripcion: `Semana ${sem+1}: solo ${libres} día(s) libre(s), trabaja ${trabajados} días`,
+        dia: inicio_sem + 1
+      });
+    }
   });
 
   return alertas;
