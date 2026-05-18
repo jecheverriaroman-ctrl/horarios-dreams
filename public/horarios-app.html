@@ -1009,7 +1009,6 @@ let areaFiltro = 'todos';
 // ===== MSAL LOGIN =====
 async function doLogin() {
   try {
-    await msalInstance.handleRedirectPromise();
     const result = await msalInstance.loginPopup({
       scopes: SP_SCOPE,
       prompt: "select_account"
@@ -1631,6 +1630,7 @@ function toast(msg, tipo = 'info') {
 // ===== INIT =====
 window.onload = async () => {
   try {
+    await msalInstance.initialize();
     await msalInstance.handleRedirectPromise();
     const accounts = msalInstance.getAllAccounts();
     if (accounts.length > 0) {
